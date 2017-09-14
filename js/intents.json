@@ -1,0 +1,1625 @@
+{
+  "intents": [
+    {
+      "name": "AMAZON.CancelIntent",
+      "samples": []
+    },
+    {
+      "name": "AMAZON.HelpIntent",
+      "samples": []
+    },
+    {
+      "name": "AMAZON.StopIntent",
+      "samples": []
+    },
+    {
+      "name": "LookupIntent",
+      "samples": [
+        "what imagery is available for {County} county",
+        "is there imagery for {County}",
+        "how much historical imagery do you have for {County} county",
+        "what years is there for {County}",
+        "what years are there for {County}",
+        "do you have imagery for {County}",
+        "how many years of imagery are there for  {County} county",
+        "does {County} have historical imagery",
+        "{County} imagery",
+        "{County} historical imagery",
+        "{County} aerials",
+        "what does t. n. r. i. s. have for {County}",
+        "what is available for {County}",
+        "are there aerials for {County} county",
+        "are there aerials for {County}",
+        "{County} historical aerials",
+        "{County} County",
+        "what do you have for {County} county",
+        "what is on file for {County}",
+        "is there anything for {County} county",
+        "does {County} county have anything",
+        "does {County} have any imagery",
+        "what imagery is there for {County} county",
+        "what aerials are there for {County}",
+        "what historical photos exist for {County} county",
+        "are there photos for {County}",
+        "what's on record for {County}",
+        "what you got for {County}",
+        "what about {County} county"
+      ],
+      "slots": [
+        {
+          "name": "County",
+          "type": "TexasCountyName",
+          "samples": [
+            "{County}",
+            "{County} County"
+          ]
+        }
+      ]
+    }
+  ],
+  "types": [
+    {
+      "name": "TexasCountyName",
+      "values": [
+        {
+            "id": "48001",
+            "name": {
+                "synonyms": ["anderson"],
+                "value": "Anderson"
+            }
+        }, {
+            "id": "48003",
+            "name": {
+                "synonyms": ["andrews"],
+                "value": "Andrews"
+            }
+        }, {
+            "id": "48005",
+            "name": {
+                "synonyms": ["angelina"],
+                "value": "Angelina"
+            }
+        }, {
+            "id": "48007",
+            "name": {
+                "synonyms": ["aransas"],
+                "value": "Aransas"
+            }
+        }, {
+            "id": "48009",
+            "name": {
+                "synonyms": ["archer"],
+                "value": "Archer"
+            }
+        }, {
+            "id": "48011",
+            "name": {
+                "synonyms": ["armstrong"],
+                "value": "Armstrong"
+            }
+        }, {
+            "id": "48013",
+            "name": {
+                "synonyms": ["atascosa"],
+                "value": "Atascosa"
+            }
+        }, {
+            "id": "48015",
+            "name": {
+                "synonyms": ["austin"],
+                "value": "Austin"
+            }
+        }, {
+            "id": "48017",
+            "name": {
+                "synonyms": ["bailey"],
+                "value": "Bailey"
+            }
+        }, {
+            "id": "48019",
+            "name": {
+                "synonyms": ["bandera"],
+                "value": "Bandera"
+            }
+        }, {
+            "id": "48021",
+            "name": {
+                "synonyms": ["bastrop"],
+                "value": "Bastrop"
+            }
+        }, {
+            "id": "48023",
+            "name": {
+                "synonyms": ["baylor"],
+                "value": "Baylor"
+            }
+        }, {
+            "id": "48025",
+            "name": {
+                "synonyms": ["bee"],
+                "value": "Bee"
+            }
+        }, {
+            "id": "48027",
+            "name": {
+                "synonyms": ["bell"],
+                "value": "Bell"
+            }
+        }, {
+            "id": "48029",
+            "name": {
+                "synonyms": ["bexar"],
+                "value": "Bexar"
+            }
+        }, {
+            "id": "48031",
+            "name": {
+                "synonyms": ["blanco"],
+                "value": "Blanco"
+            }
+        }, {
+            "id": "48033",
+            "name": {
+                "synonyms": ["borden"],
+                "value": "Borden"
+            }
+        }, {
+            "id": "48035",
+            "name": {
+                "synonyms": ["bosque"],
+                "value": "Bosque"
+            }
+        }, {
+            "id": "48037",
+            "name": {
+                "synonyms": ["bowie"],
+                "value": "Bowie"
+            }
+        }, {
+            "id": "48039",
+            "name": {
+                "synonyms": ["brazoria"],
+                "value": "Brazoria"
+            }
+        }, {
+            "id": "48041",
+            "name": {
+                "synonyms": ["brazos"],
+                "value": "Brazos"
+            }
+        }, {
+            "id": "48043",
+            "name": {
+                "synonyms": ["brewster"],
+                "value": "Brewster"
+            }
+        }, {
+            "id": "48045",
+            "name": {
+                "synonyms": ["briscoe"],
+                "value": "Briscoe"
+            }
+        }, {
+            "id": "48047",
+            "name": {
+                "synonyms": ["brooks"],
+                "value": "Brooks"
+            }
+        }, {
+            "id": "48049",
+            "name": {
+                "synonyms": ["brown"],
+                "value": "Brown"
+            }
+        }, {
+            "id": "48051",
+            "name": {
+                "synonyms": ["burleson"],
+                "value": "Burleson"
+            }
+        }, {
+            "id": "48053",
+            "name": {
+                "synonyms": ["burnet"],
+                "value": "Burnet"
+            }
+        }, {
+            "id": "48055",
+            "name": {
+                "synonyms": ["caldwell"],
+                "value": "Caldwell"
+            }
+        }, {
+            "id": "48057",
+            "name": {
+                "synonyms": ["calhoun"],
+                "value": "Calhoun"
+            }
+        }, {
+            "id": "48059",
+            "name": {
+                "synonyms": ["callahan"],
+                "value": "Callahan"
+            }
+        }, {
+            "id": "48061",
+            "name": {
+                "synonyms": ["cameron"],
+                "value": "Cameron"
+            }
+        }, {
+            "id": "48063",
+            "name": {
+                "synonyms": ["camp"],
+                "value": "Camp"
+            }
+        }, {
+            "id": "48065",
+            "name": {
+                "synonyms": ["carson"],
+                "value": "Carson"
+            }
+        }, {
+            "id": "48067",
+            "name": {
+                "synonyms": ["cass"],
+                "value": "Cass"
+            }
+        }, {
+            "id": "48069",
+            "name": {
+                "synonyms": ["castro"],
+                "value": "Castro"
+            }
+        }, {
+            "id": "48071",
+            "name": {
+                "synonyms": ["chambers"],
+                "value": "Chambers"
+            }
+        }, {
+            "id": "48073",
+            "name": {
+                "synonyms": ["cherokee"],
+                "value": "Cherokee"
+            }
+        }, {
+            "id": "48075",
+            "name": {
+                "synonyms": ["childress"],
+                "value": "Childress"
+            }
+        }, {
+            "id": "48077",
+            "name": {
+                "synonyms": ["clay"],
+                "value": "Clay"
+            }
+        }, {
+            "id": "48079",
+            "name": {
+                "synonyms": ["cochran"],
+                "value": "Cochran"
+            }
+        }, {
+            "id": "48081",
+            "name": {
+                "synonyms": ["coke"],
+                "value": "Coke"
+            }
+        }, {
+            "id": "48083",
+            "name": {
+                "synonyms": ["coleman"],
+                "value": "Coleman"
+            }
+        }, {
+            "id": "48085",
+            "name": {
+                "synonyms": ["collin"],
+                "value": "Collin"
+            }
+        }, {
+            "id": "48087",
+            "name": {
+                "synonyms": ["collingsworth"],
+                "value": "Collingsworth"
+            }
+        }, {
+            "id": "48089",
+            "name": {
+                "synonyms": ["colorado"],
+                "value": "Colorado"
+            }
+        }, {
+            "id": "48091",
+            "name": {
+                "synonyms": ["comal"],
+                "value": "Comal"
+            }
+        }, {
+            "id": "48093",
+            "name": {
+                "synonyms": ["comanche"],
+                "value": "Comanche"
+            }
+        }, {
+            "id": "48095",
+            "name": {
+                "synonyms": ["concho"],
+                "value": "Concho"
+            }
+        }, {
+            "id": "48097",
+            "name": {
+                "synonyms": ["cooke"],
+                "value": "Cooke"
+            }
+        }, {
+            "id": "48099",
+            "name": {
+                "synonyms": ["coryell"],
+                "value": "Coryell"
+            }
+        }, {
+            "id": "48101",
+            "name": {
+                "synonyms": ["cottle"],
+                "value": "Cottle"
+            }
+        }, {
+            "id": "48103",
+            "name": {
+                "synonyms": ["crane"],
+                "value": "Crane"
+            }
+        }, {
+            "id": "48105",
+            "name": {
+                "synonyms": ["crockett"],
+                "value": "Crockett"
+            }
+        }, {
+            "id": "48107",
+            "name": {
+                "synonyms": ["crosby"],
+                "value": "Crosby"
+            }
+        }, {
+            "id": "48109",
+            "name": {
+                "synonyms": ["culberson"],
+                "value": "Culberson"
+            }
+        }, {
+            "id": "48111",
+            "name": {
+                "synonyms": ["dallam"],
+                "value": "Dallam"
+            }
+        }, {
+            "id": "48113",
+            "name": {
+                "synonyms": ["dallas"],
+                "value": "Dallas"
+            }
+        }, {
+            "id": "48115",
+            "name": {
+                "synonyms": ["dawson"],
+                "value": "Dawson"
+            }
+        }, {
+            "id": "48123",
+            "name": {
+                "synonyms": ["dewitt", "Dewitt"],
+                "value": "DeWitt"
+            }
+        }, {
+            "id": "48117",
+            "name": {
+                "synonyms": ["deaf smith", "Deaf smith"],
+                "value": "Deaf Smith"
+            }
+        }, {
+            "id": "48119",
+            "name": {
+                "synonyms": ["delta"],
+                "value": "Delta"
+            }
+        }, {
+            "id": "48121",
+            "name": {
+                "synonyms": ["denton"],
+                "value": "Denton"
+            }
+        }, {
+            "id": "48125",
+            "name": {
+                "synonyms": ["dickens"],
+                "value": "Dickens"
+            }
+        }, {
+            "id": "48127",
+            "name": {
+                "synonyms": ["dimmit"],
+                "value": "Dimmit"
+            }
+        }, {
+            "id": "48129",
+            "name": {
+                "synonyms": ["donley"],
+                "value": "Donley"
+            }
+        }, {
+            "id": "48131",
+            "name": {
+                "synonyms": ["duval"],
+                "value": "Duval"
+            }
+        }, {
+            "id": "48133",
+            "name": {
+                "synonyms": ["eastland"],
+                "value": "Eastland"
+            }
+        }, {
+            "id": "48135",
+            "name": {
+                "synonyms": ["ector"],
+                "value": "Ector"
+            }
+        }, {
+            "id": "48137",
+            "name": {
+                "synonyms": ["edwards"],
+                "value": "Edwards"
+            }
+        }, {
+            "id": "48141",
+            "name": {
+                "synonyms": ["el paso", "El paso"],
+                "value": "El Paso"
+            }
+        }, {
+            "id": "48139",
+            "name": {
+                "synonyms": ["ellis"],
+                "value": "Ellis"
+            }
+        }, {
+            "id": "48143",
+            "name": {
+                "synonyms": ["erath"],
+                "value": "Erath"
+            }
+        }, {
+            "id": "48145",
+            "name": {
+                "synonyms": ["falls"],
+                "value": "Falls"
+            }
+        }, {
+            "id": "48147",
+            "name": {
+                "synonyms": ["fannin"],
+                "value": "Fannin"
+            }
+        }, {
+            "id": "48149",
+            "name": {
+                "synonyms": ["fayette"],
+                "value": "Fayette"
+            }
+        }, {
+            "id": "48151",
+            "name": {
+                "synonyms": ["fisher"],
+                "value": "Fisher"
+            }
+        }, {
+            "id": "48153",
+            "name": {
+                "synonyms": ["floyd"],
+                "value": "Floyd"
+            }
+        }, {
+            "id": "48155",
+            "name": {
+                "synonyms": ["foard"],
+                "value": "Foard"
+            }
+        }, {
+            "id": "48157",
+            "name": {
+                "synonyms": ["fort bend", "Fort bend"],
+                "value": "Fort Bend"
+            }
+        }, {
+            "id": "48159",
+            "name": {
+                "synonyms": ["franklin"],
+                "value": "Franklin"
+            }
+        }, {
+            "id": "48161",
+            "name": {
+                "synonyms": ["freestone"],
+                "value": "Freestone"
+            }
+        }, {
+            "id": "48163",
+            "name": {
+                "synonyms": ["frio"],
+                "value": "Frio"
+            }
+        }, {
+            "id": "48165",
+            "name": {
+                "synonyms": ["gaines"],
+                "value": "Gaines"
+            }
+        }, {
+            "id": "48167",
+            "name": {
+                "synonyms": ["galveston"],
+                "value": "Galveston"
+            }
+        }, {
+            "id": "48169",
+            "name": {
+                "synonyms": ["garza"],
+                "value": "Garza"
+            }
+        }, {
+            "id": "48171",
+            "name": {
+                "synonyms": ["gillespie"],
+                "value": "Gillespie"
+            }
+        }, {
+            "id": "48173",
+            "name": {
+                "synonyms": ["glasscock"],
+                "value": "Glasscock"
+            }
+        }, {
+            "id": "48175",
+            "name": {
+                "synonyms": ["goliad"],
+                "value": "Goliad"
+            }
+        }, {
+            "id": "48177",
+            "name": {
+                "synonyms": ["gonzales"],
+                "value": "Gonzales"
+            }
+        }, {
+            "id": "48179",
+            "name": {
+                "synonyms": ["gray"],
+                "value": "Gray"
+            }
+        }, {
+            "id": "48181",
+            "name": {
+                "synonyms": ["grayson"],
+                "value": "Grayson"
+            }
+        }, {
+            "id": "48183",
+            "name": {
+                "synonyms": ["gregg"],
+                "value": "Gregg"
+            }
+        }, {
+            "id": "48185",
+            "name": {
+                "synonyms": ["grimes"],
+                "value": "Grimes"
+            }
+        }, {
+            "id": "48187",
+            "name": {
+                "synonyms": ["guadalupe"],
+                "value": "Guadalupe"
+            }
+        }, {
+            "id": "48189",
+            "name": {
+                "synonyms": ["hale"],
+                "value": "Hale"
+            }
+        }, {
+            "id": "48191",
+            "name": {
+                "synonyms": ["hall"],
+                "value": "Hall"
+            }
+        }, {
+            "id": "48193",
+            "name": {
+                "synonyms": ["hamilton"],
+                "value": "Hamilton"
+            }
+        }, {
+            "id": "48195",
+            "name": {
+                "synonyms": ["hansford"],
+                "value": "Hansford"
+            }
+        }, {
+            "id": "48197",
+            "name": {
+                "synonyms": ["hardeman"],
+                "value": "Hardeman"
+            }
+        }, {
+            "id": "48199",
+            "name": {
+                "synonyms": ["hardin"],
+                "value": "Hardin"
+            }
+        }, {
+            "id": "48201",
+            "name": {
+                "synonyms": ["harris"],
+                "value": "Harris"
+            }
+        }, {
+            "id": "48203",
+            "name": {
+                "synonyms": ["harrison"],
+                "value": "Harrison"
+            }
+        }, {
+            "id": "48205",
+            "name": {
+                "synonyms": ["hartley"],
+                "value": "Hartley"
+            }
+        }, {
+            "id": "48207",
+            "name": {
+                "synonyms": ["haskell"],
+                "value": "Haskell"
+            }
+        }, {
+            "id": "48209",
+            "name": {
+                "synonyms": ["hays"],
+                "value": "Hays"
+            }
+        }, {
+            "id": "48211",
+            "name": {
+                "synonyms": ["hemphill"],
+                "value": "Hemphill"
+            }
+        }, {
+            "id": "48213",
+            "name": {
+                "synonyms": ["henderson"],
+                "value": "Henderson"
+            }
+        }, {
+            "id": "48215",
+            "name": {
+                "synonyms": ["hidalgo"],
+                "value": "Hidalgo"
+            }
+        }, {
+            "id": "48217",
+            "name": {
+                "synonyms": ["hill"],
+                "value": "Hill"
+            }
+        }, {
+            "id": "48219",
+            "name": {
+                "synonyms": ["hockley"],
+                "value": "Hockley"
+            }
+        }, {
+            "id": "48221",
+            "name": {
+                "synonyms": ["hood"],
+                "value": "Hood"
+            }
+        }, {
+            "id": "48223",
+            "name": {
+                "synonyms": ["hopkins"],
+                "value": "Hopkins"
+            }
+        }, {
+            "id": "48225",
+            "name": {
+                "synonyms": ["houston"],
+                "value": "Houston"
+            }
+        }, {
+            "id": "48227",
+            "name": {
+                "synonyms": ["howard"],
+                "value": "Howard"
+            }
+        }, {
+            "id": "48229",
+            "name": {
+                "synonyms": ["hudspeth"],
+                "value": "Hudspeth"
+            }
+        }, {
+            "id": "48231",
+            "name": {
+                "synonyms": ["hunt"],
+                "value": "Hunt"
+            }
+        }, {
+            "id": "48233",
+            "name": {
+                "synonyms": ["hutchinson"],
+                "value": "Hutchinson"
+            }
+        }, {
+            "id": "48235",
+            "name": {
+                "synonyms": ["irion"],
+                "value": "Irion"
+            }
+        }, {
+            "id": "48237",
+            "name": {
+                "synonyms": ["jack"],
+                "value": "Jack"
+            }
+        }, {
+            "id": "48239",
+            "name": {
+                "synonyms": ["jackson"],
+                "value": "Jackson"
+            }
+        }, {
+            "id": "48241",
+            "name": {
+                "synonyms": ["jasper"],
+                "value": "Jasper"
+            }
+        }, {
+            "id": "48243",
+            "name": {
+                "synonyms": ["jeff davis", "Jeff davis"],
+                "value": "Jeff Davis"
+            }
+        }, {
+            "id": "48245",
+            "name": {
+                "synonyms": ["jefferson"],
+                "value": "Jefferson"
+            }
+        }, {
+            "id": "48247",
+            "name": {
+                "synonyms": ["jim hogg", "Jim hogg"],
+                "value": "Jim Hogg"
+            }
+        }, {
+            "id": "48249",
+            "name": {
+                "synonyms": ["jim wells", "Jim wells"],
+                "value": "Jim Wells"
+            }
+        }, {
+            "id": "48251",
+            "name": {
+                "synonyms": ["johnson"],
+                "value": "Johnson"
+            }
+        }, {
+            "id": "48253",
+            "name": {
+                "synonyms": ["jones"],
+                "value": "Jones"
+            }
+        }, {
+            "id": "48255",
+            "name": {
+                "synonyms": ["karnes"],
+                "value": "Karnes"
+            }
+        }, {
+            "id": "48257",
+            "name": {
+                "synonyms": ["kaufman"],
+                "value": "Kaufman"
+            }
+        }, {
+            "id": "48259",
+            "name": {
+                "synonyms": ["kendall"],
+                "value": "Kendall"
+            }
+        }, {
+            "id": "48261",
+            "name": {
+                "synonyms": ["kenedy"],
+                "value": "Kenedy"
+            }
+        }, {
+            "id": "48263",
+            "name": {
+                "synonyms": ["kent"],
+                "value": "Kent"
+            }
+        }, {
+            "id": "48265",
+            "name": {
+                "synonyms": ["kerr"],
+                "value": "Kerr"
+            }
+        }, {
+            "id": "48267",
+            "name": {
+                "synonyms": ["kimble"],
+                "value": "Kimble"
+            }
+        }, {
+            "id": "48269",
+            "name": {
+                "synonyms": ["king"],
+                "value": "King"
+            }
+        }, {
+            "id": "48271",
+            "name": {
+                "synonyms": ["kinney"],
+                "value": "Kinney"
+            }
+        }, {
+            "id": "48273",
+            "name": {
+                "synonyms": ["kleberg"],
+                "value": "Kleberg"
+            }
+        }, {
+            "id": "48275",
+            "name": {
+                "synonyms": ["knox"],
+                "value": "Knox"
+            }
+        }, {
+            "id": "48283",
+            "name": {
+                "synonyms": ["la salle", "La salle"],
+                "value": "La Salle"
+            }
+        }, {
+            "id": "48277",
+            "name": {
+                "synonyms": ["lamar"],
+                "value": "Lamar"
+            }
+        }, {
+            "id": "48279",
+            "name": {
+                "synonyms": ["lamb"],
+                "value": "Lamb"
+            }
+        }, {
+            "id": "48281",
+            "name": {
+                "synonyms": ["lampasas"],
+                "value": "Lampasas"
+            }
+        }, {
+            "id": "48285",
+            "name": {
+                "synonyms": ["lavaca"],
+                "value": "Lavaca"
+            }
+        }, {
+            "id": "48287",
+            "name": {
+                "synonyms": ["lee"],
+                "value": "Lee"
+            }
+        }, {
+            "id": "48289",
+            "name": {
+                "synonyms": ["leon"],
+                "value": "Leon"
+            }
+        }, {
+            "id": "48291",
+            "name": {
+                "synonyms": ["liberty"],
+                "value": "Liberty"
+            }
+        }, {
+            "id": "48293",
+            "name": {
+                "synonyms": ["limestone"],
+                "value": "Limestone"
+            }
+        }, {
+            "id": "48295",
+            "name": {
+                "synonyms": ["lipscomb"],
+                "value": "Lipscomb"
+            }
+        }, {
+            "id": "48297",
+            "name": {
+                "synonyms": ["live oak", "Live oak"],
+                "value": "Live Oak"
+            }
+        }, {
+            "id": "48299",
+            "name": {
+                "synonyms": ["llano"],
+                "value": "Llano"
+            }
+        }, {
+            "id": "48301",
+            "name": {
+                "synonyms": ["loving"],
+                "value": "Loving"
+            }
+        }, {
+            "id": "48303",
+            "name": {
+                "synonyms": ["lubbock"],
+                "value": "Lubbock"
+            }
+        }, {
+            "id": "48305",
+            "name": {
+                "synonyms": ["lynn"],
+                "value": "Lynn"
+            }
+        }, {
+            "id": "48313",
+            "name": {
+                "synonyms": ["madison"],
+                "value": "Madison"
+            }
+        }, {
+            "id": "48315",
+            "name": {
+                "synonyms": ["marion"],
+                "value": "Marion"
+            }
+        }, {
+            "id": "48317",
+            "name": {
+                "synonyms": ["martin"],
+                "value": "Martin"
+            }
+        }, {
+            "id": "48319",
+            "name": {
+                "synonyms": ["mason"],
+                "value": "Mason"
+            }
+        }, {
+            "id": "48321",
+            "name": {
+                "synonyms": ["matagorda"],
+                "value": "Matagorda"
+            }
+        }, {
+            "id": "48323",
+            "name": {
+                "synonyms": ["maverick"],
+                "value": "Maverick"
+            }
+        }, {
+            "id": "48307",
+            "name": {
+                "synonyms": ["mcculloch", "Mcculloch"],
+                "value": "McCulloch"
+            }
+        }, {
+            "id": "48309",
+            "name": {
+                "synonyms": ["mclennan", "Mclennan"],
+                "value": "McLennan"
+            }
+        }, {
+            "id": "48311",
+            "name": {
+                "synonyms": ["mcmullen", "Mcmullen"],
+                "value": "McMullen"
+            }
+        }, {
+            "id": "48325",
+            "name": {
+                "synonyms": ["medina"],
+                "value": "Medina"
+            }
+        }, {
+            "id": "48327",
+            "name": {
+                "synonyms": ["menard"],
+                "value": "Menard"
+            }
+        }, {
+            "id": "48329",
+            "name": {
+                "synonyms": ["midland"],
+                "value": "Midland"
+            }
+        }, {
+            "id": "48331",
+            "name": {
+                "synonyms": ["milam"],
+                "value": "Milam"
+            }
+        }, {
+            "id": "48333",
+            "name": {
+                "synonyms": ["mills"],
+                "value": "Mills"
+            }
+        }, {
+            "id": "48335",
+            "name": {
+                "synonyms": ["mitchell"],
+                "value": "Mitchell"
+            }
+        }, {
+            "id": "48337",
+            "name": {
+                "synonyms": ["montague"],
+                "value": "Montague"
+            }
+        }, {
+            "id": "48339",
+            "name": {
+                "synonyms": ["montgomery"],
+                "value": "Montgomery"
+            }
+        }, {
+            "id": "48341",
+            "name": {
+                "synonyms": ["moore"],
+                "value": "Moore"
+            }
+        }, {
+            "id": "48343",
+            "name": {
+                "synonyms": ["morris"],
+                "value": "Morris"
+            }
+        }, {
+            "id": "48345",
+            "name": {
+                "synonyms": ["motley"],
+                "value": "Motley"
+            }
+        }, {
+            "id": "48347",
+            "name": {
+                "synonyms": ["nacogdoches"],
+                "value": "Nacogdoches"
+            }
+        }, {
+            "id": "48349",
+            "name": {
+                "synonyms": ["navarro"],
+                "value": "Navarro"
+            }
+        }, {
+            "id": "48351",
+            "name": {
+                "synonyms": ["newton"],
+                "value": "Newton"
+            }
+        }, {
+            "id": "48353",
+            "name": {
+                "synonyms": ["nolan"],
+                "value": "Nolan"
+            }
+        }, {
+            "id": "48355",
+            "name": {
+                "synonyms": ["nueces"],
+                "value": "Nueces"
+            }
+        }, {
+            "id": "48357",
+            "name": {
+                "synonyms": ["ochiltree"],
+                "value": "Ochiltree"
+            }
+        }, {
+            "id": "48359",
+            "name": {
+                "synonyms": ["oldham"],
+                "value": "Oldham"
+            }
+        }, {
+            "id": "48361",
+            "name": {
+                "synonyms": ["orange"],
+                "value": "Orange"
+            }
+        }, {
+            "id": "48363",
+            "name": {
+                "synonyms": ["palo pinto", "Palo pinto"],
+                "value": "Palo Pinto"
+            }
+        }, {
+            "id": "48365",
+            "name": {
+                "synonyms": ["panola"],
+                "value": "Panola"
+            }
+        }, {
+            "id": "48367",
+            "name": {
+                "synonyms": ["parker"],
+                "value": "Parker"
+            }
+        }, {
+            "id": "48369",
+            "name": {
+                "synonyms": ["parmer"],
+                "value": "Parmer"
+            }
+        }, {
+            "id": "48371",
+            "name": {
+                "synonyms": ["pecos"],
+                "value": "Pecos"
+            }
+        }, {
+            "id": "48373",
+            "name": {
+                "synonyms": ["polk"],
+                "value": "Polk"
+            }
+        }, {
+            "id": "48375",
+            "name": {
+                "synonyms": ["potter"],
+                "value": "Potter"
+            }
+        }, {
+            "id": "48377",
+            "name": {
+                "synonyms": ["presidio"],
+                "value": "Presidio"
+            }
+        }, {
+            "id": "48379",
+            "name": {
+                "synonyms": ["rains"],
+                "value": "Rains"
+            }
+        }, {
+            "id": "48381",
+            "name": {
+                "synonyms": ["randall"],
+                "value": "Randall"
+            }
+        }, {
+            "id": "48383",
+            "name": {
+                "synonyms": ["reagan"],
+                "value": "Reagan"
+            }
+        }, {
+            "id": "48385",
+            "name": {
+                "synonyms": ["real"],
+                "value": "Real"
+            }
+        }, {
+            "id": "48387",
+            "name": {
+                "synonyms": ["red river", "Red river"],
+                "value": "Red River"
+            }
+        }, {
+            "id": "48389",
+            "name": {
+                "synonyms": ["reeves"],
+                "value": "Reeves"
+            }
+        }, {
+            "id": "48391",
+            "name": {
+                "synonyms": ["refugio"],
+                "value": "Refugio"
+            }
+        }, {
+            "id": "48393",
+            "name": {
+                "synonyms": ["roberts"],
+                "value": "Roberts"
+            }
+        }, {
+            "id": "48395",
+            "name": {
+                "synonyms": ["robertson"],
+                "value": "Robertson"
+            }
+        }, {
+            "id": "48397",
+            "name": {
+                "synonyms": ["rockwall"],
+                "value": "Rockwall"
+            }
+        }, {
+            "id": "48399",
+            "name": {
+                "synonyms": ["runnels"],
+                "value": "Runnels"
+            }
+        }, {
+            "id": "48401",
+            "name": {
+                "synonyms": ["rusk"],
+                "value": "Rusk"
+            }
+        }, {
+            "id": "48403",
+            "name": {
+                "synonyms": ["sabine"],
+                "value": "Sabine"
+            }
+        }, {
+            "id": "48405",
+            "name": {
+                "synonyms": ["san augustine", "San augustine"],
+                "value": "San Augustine"
+            }
+        }, {
+            "id": "48407",
+            "name": {
+                "synonyms": ["san jacinto", "San jacinto"],
+                "value": "San Jacinto"
+            }
+        }, {
+            "id": "48409",
+            "name": {
+                "synonyms": ["san patricio", "San patricio"],
+                "value": "San Patricio"
+            }
+        }, {
+            "id": "48411",
+            "name": {
+                "synonyms": ["san saba", "San saba"],
+                "value": "San Saba"
+            }
+        }, {
+            "id": "48413",
+            "name": {
+                "synonyms": ["schleicher"],
+                "value": "Schleicher"
+            }
+        }, {
+            "id": "48415",
+            "name": {
+                "synonyms": ["scurry"],
+                "value": "Scurry"
+            }
+        }, {
+            "id": "48417",
+            "name": {
+                "synonyms": ["shackelford"],
+                "value": "Shackelford"
+            }
+        }, {
+            "id": "48419",
+            "name": {
+                "synonyms": ["shelby"],
+                "value": "Shelby"
+            }
+        }, {
+            "id": "48421",
+            "name": {
+                "synonyms": ["sherman"],
+                "value": "Sherman"
+            }
+        }, {
+            "id": "48423",
+            "name": {
+                "synonyms": ["smith"],
+                "value": "Smith"
+            }
+        }, {
+            "id": "48425",
+            "name": {
+                "synonyms": ["somervell"],
+                "value": "Somervell"
+            }
+        }, {
+            "id": "48427",
+            "name": {
+                "synonyms": ["starr"],
+                "value": "Starr"
+            }
+        }, {
+            "id": "48429",
+            "name": {
+                "synonyms": ["stephens"],
+                "value": "Stephens"
+            }
+        }, {
+            "id": "48431",
+            "name": {
+                "synonyms": ["sterling"],
+                "value": "Sterling"
+            }
+        }, {
+            "id": "48433",
+            "name": {
+                "synonyms": ["stonewall"],
+                "value": "Stonewall"
+            }
+        }, {
+            "id": "48435",
+            "name": {
+                "synonyms": ["sutton"],
+                "value": "Sutton"
+            }
+        }, {
+            "id": "48437",
+            "name": {
+                "synonyms": ["swisher"],
+                "value": "Swisher"
+            }
+        }, {
+            "id": "48439",
+            "name": {
+                "synonyms": ["tarrant"],
+                "value": "Tarrant"
+            }
+        }, {
+            "id": "48441",
+            "name": {
+                "synonyms": ["taylor"],
+                "value": "Taylor"
+            }
+        }, {
+            "id": "48443",
+            "name": {
+                "synonyms": ["terrell"],
+                "value": "Terrell"
+            }
+        }, {
+            "id": "48445",
+            "name": {
+                "synonyms": ["terry"],
+                "value": "Terry"
+            }
+        }, {
+            "id": "48447",
+            "name": {
+                "synonyms": ["throckmorton"],
+                "value": "Throckmorton"
+            }
+        }, {
+            "id": "48449",
+            "name": {
+                "synonyms": ["titus"],
+                "value": "Titus"
+            }
+        }, {
+            "id": "48451",
+            "name": {
+                "synonyms": ["tom green", "Tom green"],
+                "value": "Tom Green"
+            }
+        }, {
+            "id": "48453",
+            "name": {
+                "synonyms": ["travis"],
+                "value": "Travis"
+            }
+        }, {
+            "id": "48455",
+            "name": {
+                "synonyms": ["trinity"],
+                "value": "Trinity"
+            }
+        }, {
+            "id": "48457",
+            "name": {
+                "synonyms": ["tyler"],
+                "value": "Tyler"
+            }
+        }, {
+            "id": "48459",
+            "name": {
+                "synonyms": ["upshur"],
+                "value": "Upshur"
+            }
+        }, {
+            "id": "48461",
+            "name": {
+                "synonyms": ["upton"],
+                "value": "Upton"
+            }
+        }, {
+            "id": "48463",
+            "name": {
+                "synonyms": ["uvalde"],
+                "value": "Uvalde"
+            }
+        }, {
+            "id": "48465",
+            "name": {
+                "synonyms": ["val verde", "Val verde"],
+                "value": "Val Verde"
+            }
+        }, {
+            "id": "48467",
+            "name": {
+                "synonyms": ["van zandt", "Van zandt"],
+                "value": "Van Zandt"
+            }
+        }, {
+            "id": "48469",
+            "name": {
+                "synonyms": ["victoria"],
+                "value": "Victoria"
+            }
+        }, {
+            "id": "48471",
+            "name": {
+                "synonyms": ["walker"],
+                "value": "Walker"
+            }
+        }, {
+            "id": "48473",
+            "name": {
+                "synonyms": ["waller"],
+                "value": "Waller"
+            }
+        }, {
+            "id": "48475",
+            "name": {
+                "synonyms": ["ward"],
+                "value": "Ward"
+            }
+        }, {
+            "id": "48477",
+            "name": {
+                "synonyms": ["washington"],
+                "value": "Washington"
+            }
+        }, {
+            "id": "48479",
+            "name": {
+                "synonyms": ["webb"],
+                "value": "Webb"
+            }
+        }, {
+            "id": "48481",
+            "name": {
+                "synonyms": ["wharton"],
+                "value": "Wharton"
+            }
+        }, {
+            "id": "48483",
+            "name": {
+                "synonyms": ["wheeler"],
+                "value": "Wheeler"
+            }
+        }, {
+            "id": "48485",
+            "name": {
+                "synonyms": ["wichita"],
+                "value": "Wichita"
+            }
+        }, {
+            "id": "48487",
+            "name": {
+                "synonyms": ["wilbarger"],
+                "value": "Wilbarger"
+            }
+        }, {
+            "id": "48489",
+            "name": {
+                "synonyms": ["willacy"],
+                "value": "Willacy"
+            }
+        }, {
+            "id": "48491",
+            "name": {
+                "synonyms": ["williamson"],
+                "value": "Williamson"
+            }
+        }, {
+            "id": "48493",
+            "name": {
+                "synonyms": ["wilson"],
+                "value": "Wilson"
+            }
+        }, {
+            "id": "48495",
+            "name": {
+                "synonyms": ["winkler"],
+                "value": "Winkler"
+            }
+        }, {
+            "id": "48497",
+            "name": {
+                "synonyms": ["wise"],
+                "value": "Wise"
+            }
+        }, {
+            "id": "48499",
+            "name": {
+                "synonyms": ["wood"],
+                "value": "Wood"
+            }
+        }, {
+            "id": "48501",
+            "name": {
+                "synonyms": ["yoakum"],
+                "value": "Yoakum"
+            }
+        }, {
+            "id": "48503",
+            "name": {
+                "synonyms": ["young"],
+                "value": "Young"
+            }
+        }, {
+            "id": "48505",
+            "name": {
+                "synonyms": ["zapata"],
+                "value": "Zapata"
+            }
+        }, {
+            "id": "48507",
+            "name": {
+                "synonyms": ["zavala"],
+                "value": "Zavala"
+            }
+        }]
+    }
+  ],
+  "prompts": [
+    {
+      "id": "Elicit.Intent-LookupIntent.IntentSlot-County",
+      "promptVersion": "1.0",
+      "definitionVersion": "1.0",
+      "variations": [
+        {
+          "type": "PlainText",
+          "value": "What county would you like to look up historical imagery for?"
+        }
+      ]
+    }
+  ],
+  "dialog": {
+    "version": "1.0",
+    "intents": [
+      {
+        "name": "LookupIntent",
+        "confirmationRequired": false,
+        "prompts": {},
+        "slots": [
+          {
+            "name": "County",
+            "type": "TexasCountyName",
+            "elicitationRequired": true,
+            "confirmationRequired": false,
+            "prompts": {
+              "elicit": "Elicit.Intent-LookupIntent.IntentSlot-County"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

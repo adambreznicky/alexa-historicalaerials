@@ -93,7 +93,6 @@ def get_hist_imagery_years(fips):
     url = url_base + str(fips)
     r = requests.get(url)
     imgs = r.json()
-    print(imgs)
     if len(imgs) == 0:
         return 0
     if len(imgs) == 1:
@@ -102,7 +101,7 @@ def get_hist_imagery_years(fips):
     else:
         years = [datetime.strptime(i['Date'],
                  '%Y-%m-%dT%H:%M:%S.%fZ').year for i in imgs]
-        unique_years = list(set(years))
+        unique_years = sorted(set(years))
         print(unique_years)
         oldest = unique_years[0]
         newest = unique_years[-1]

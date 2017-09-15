@@ -57,8 +57,9 @@ def get_welcome_response():
                     "Information System. Please tell me the Texas county " \
                     "you would like historic imagery for and I can tell you " \
                     "what we have in our archive."
-    # If the user either does not reply to the welcome message or says something
-    # that is not understood, they will be prompted again with this text.
+    # If the user either does not reply to the welcome message or
+    # says something that is not understood, they will be prompted again
+    # with this text.
     reprompt_text = "Please tell me the Texas county you would like " \
                     "historic imagery for."
     should_end_session = False
@@ -209,7 +210,8 @@ def lookup_session(intent, session):
 def on_session_started(session_started_request, session):
     """ Called when the session starts """
 
-    print("on_session_started requestId=" + session_started_request['requestId']
+    print("on_session_started requestId=" +
+          session_started_request['requestId']
           + ", sessionId=" + session['sessionId'])
 
 
@@ -241,7 +243,8 @@ def on_intent(intent_request, session):
     #     return get_color_from_session(intent, session)
     elif intent_name == "AMAZON.HelpIntent":
         return get_welcome_response()
-    elif intent_name == "AMAZON.CancelIntent" or intent_name == "AMAZON.StopIntent":
+    elif (intent_name == "AMAZON.CancelIntent" or
+          intent_name == "AMAZON.StopIntent"):
         return handle_session_end_request()
     else:
         raise ValueError("Invalid intent")

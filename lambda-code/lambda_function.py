@@ -1,16 +1,14 @@
 """
-This sample demonstrates a simple skill built with the Amazon Alexa Skills Kit.
-The Intent Schema, Custom Slots, and Sample Utterances for this skill, as well
-as testing instructions are located at http://amzn.to/1LzFrj6
-
-For additional samples, visit the Alexa Skills Kit Getting Started guide at
-http://amzn.to/1LGWsLG
+Built from Alexa Skill example, info here: http://amzn.to/1LzFrj6
 """
 
 from __future__ import print_function
 import requests
 import json
 from datetime import datetime
+import responses
+
+alexa = responses.alexa()
 
 # --------------- Helpers that build all of the responses ---------------------
 
@@ -54,14 +52,11 @@ def get_welcome_response():
     session_attributes = {}
     card_title = "Welcome"
     speech_output = "Howdy! Welcome to the Texas Natural Resources " \
-                    "Information System. Please tell me the Texas county " \
-                    "you would like historic imagery for and I can tell you " \
-                    "what we have in our archive."
+                    "Information System. " + alexa.instruction
     # If the user either does not reply to the welcome message or
     # says something that is not understood, they will be prompted again
     # with this text.
-    reprompt_text = "Please tell me the Texas county you would like " \
-                    "historic imagery for."
+    reprompt_text = alexa.instruction
     should_end_session = False
     return build_response(session_attributes, build_speechlet_response(
         card_title, speech_output, reprompt_text, should_end_session))
@@ -129,7 +124,6 @@ def lookup_session(intent, session):
     """
     Looks up requested data
     """
-
     card_title = intent['name']
     session_attributes = {}
     should_end_session = False
@@ -137,72 +131,44 @@ def lookup_session(intent, session):
     if 'County' in intent['slots']:
         try:
             historical_county = intent['slots']['County']['value']
-            # session_attributes = create_favorite_color_attributes(favorite_color)
             fips = get_county_fips(historical_county)
             years = get_hist_imagery_years(fips)
             multiple = isinstance(years, list)
 
             if multiple:
-                speech_output = "TinRiss has " + str(years[0]) + " years of " \
-                                + historical_county + " County historical " \
-                                "imagery available ranging from " + \
-                                str(years[1]) + " to " + str(years[2]) + ". " \
-                                "Is there another county you would " \
-                                "like me to look up?"
-                reprompt_text = "Is there another county you would " \
-                                "like me to look up?"
+                reprompt_text = alexa.reprompt_1
+                text = alexa.imagery_range(historical_county, years[0],
+                                           years[1], years[2])
+                speech_output = text + reprompt_text
             elif years == 0:
-                speech_output = "Sorry, there is no historical imagery " + \
-                                "for " + historical_county + " County. " \
-                                "If there is another county I can lookup " \
-                                "I would be happy to do so."
-                reprompt_text = "If there is another county I can lookup " \
-                                "I would be happy to do so."
+                reprompt_text = alexa.reprompt_2
+                text = alexa.imagery_none(historical_county)
+                speech_output = text + reprompt_text
             else:
-                speech_output = "TinRiss has 1 year of " + \
-                                historical_county + " County historical " \
-                                "imagery available. It is from " + str(years) \
-                                + ". " + \
-                                "Is there another county you would " \
-                                "like me to look up?"
-                reprompt_text = "Is there another county you would " \
-                                "like me to look up?"
+                reprompt_text = alexa.reprompt_1
+                text = alexa.imagery_single(historical_county, years)
+                speech_output = text + reprompt_text
         except:
-            speech_output = "I'm not sure what county you're looking for. " \
-                            "Please try again."
-            reprompt_text = "I'm not sure what county you're looking for. " \
-                            "Please tell me the Texas county you would like " \
-                            "historic imagery for."
-
+            print(alexa)
+            speech_output = alexa.confused + "Please try again."
+            reprompt_text = alexa.confused + alexa.instruction
     else:
-        speech_output = "I'm not sure what county you're looking for. " \
-                        "Please try again."
-        reprompt_text = "I'm not sure what county you're looking for. " \
-                        "Please tell me the Texas county you would like " \
-                        "historic imagery for."
+        speech_output = alexa.confused + "Please try again."
+        reprompt_text = alexa.confused + alexa.instruction
     return build_response(session_attributes, build_speechlet_response(
         card_title, speech_output, reprompt_text, should_end_session))
 
 
-# def get_color_from_session(intent, session):
+# def list_years_session(intent, session):
+#     """
+#     Lists the specific years on file for a county
+#     """
+#     card_title = intent['name']
 #     session_attributes = {}
-#     reprompt_text = None
+#     should_end_session = False
 
-#     if session.get('attributes', {}) and "favoriteColor" in session.get('attributes', {}):
-#         favorite_color = session['attributes']['favoriteColor']
-#         speech_output = "Your favorite color is " + favorite_color + \
-#                         ". Goodbye."
-#         should_end_session = True
-#     else:
-#         speech_output = "I'm not sure what your favorite color is. " \
-#                         "You can say, my favorite color is red."
-#         should_end_session = False
-
-#     # Setting reprompt_text to None signifies that we do not want to reprompt
-#     # the user. If the user does not respond or says something that is not
-#     # understood, the session will end.
 #     return build_response(session_attributes, build_speechlet_response(
-#         intent['name'], speech_output, reprompt_text, should_end_session))
+#         card_title, speech_output, reprompt_text, should_end_session))
 
 
 # --------------- Events ------------------
@@ -239,8 +205,8 @@ def on_intent(intent_request, session):
     # Dispatch to your skill's intent handlers
     if intent_name == "LookupIntent":
         return lookup_session(intent, session)
-    # elif intent_name == "WhatsMyColorIntent":
-    #     return get_color_from_session(intent, session)
+    # elif intent_name == "ListYearsIntent":
+    #     return list_years_session(intent, session)
     elif intent_name == "AMAZON.HelpIntent":
         return get_welcome_response()
     elif (intent_name == "AMAZON.CancelIntent" or
@@ -270,9 +236,9 @@ def lambda_handler(event, context):
           event['session']['application']['applicationId'])
 
     """
-    Uncomment this if statement and populate with your skill's application ID to
-    prevent someone else from configuring a skill that sends requests to this
-    function.
+    Uncomment this if statement and populate with your skill's application ID
+    to prevent someone else from configuring a skill that sends requests to
+    this function.
     """
     # if (event['session']['application']['applicationId'] !=
     #         "amzn1.echo-sdk-ams.app.[unique-value-here]"):

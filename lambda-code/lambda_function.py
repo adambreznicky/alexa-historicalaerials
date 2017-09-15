@@ -71,8 +71,8 @@ def handle_session_end_request():
         card_title, speech_output, None, should_end_session))
 
 
-# def create_favorite_color_attributes(favorite_color):
-#     return {"favoriteColor": favorite_color}
+def create_session_ref(county):
+    return {"county": county}
 
 
 def get_county_fips(name):
@@ -159,6 +159,7 @@ def lookup_session(intent, session):
     if 'County' in intent['slots']:
         try:
             historical_county = intent['slots']['County']['value']
+            session_attributes = create_session_ref(historical_county)
             fips = get_county_fips(historical_county)
             years = get_hist_imagery_years(fips)
             multiple = isinstance(years, list)
@@ -194,9 +195,17 @@ def list_years_session(intent, session):
     session_attributes = {}
     should_end_session = False
 
+    if session.get('attributes', {}) and "county" in session.get('attributes',
+                                                                 {}):
+        session_county = session['attributes']['county']
+    else:
+        session_county = ""
+
     if 'County' in intent['slots']:
         try:
             historical_county = intent['slots']['County']['value']
+            if session_county != historical_county:
+                session_attributes = create_session_ref(historical_county)
             fips = get_county_fips(historical_county)
             years = get_imagery_years_list(fips)
             multiple = isinstance(years, list)
@@ -214,8 +223,31 @@ def list_years_session(intent, session):
                 text = alexa.imagery_single(historical_county, years)
                 speech_output = text + reprompt_text
         except:
-            speech_output = alexa.confused + "Please try again."
-            reprompt_text = alexa.confused + alexa.instruction
+            try:
+                if session_county == "":
+                    msg = 'No county saved in session and no new ' \
+                          'county requested.'
+                    raise Exception(msg)
+
+                fips = get_county_fips(historical_county)
+                years = get_imagery_years_list(fips)
+                multiple = isinstance(years, list)
+
+                if multiple:
+                    reprompt_text = alexa.reprompt_1
+                    text = alexa.list_range(historical_county, years)
+                    speech_output = text + reprompt_text
+                elif years == 0:
+                    reprompt_text = alexa.reprompt_2
+                    text = alexa.imagery_none(historical_county)
+                    speech_output = text + reprompt_text
+                else:
+                    reprompt_text = alexa.reprompt_1
+                    text = alexa.imagery_single(historical_county, years)
+                    speech_output = text + reprompt_text
+            except:
+                speech_output = alexa.confused + "Please try again."
+                reprompt_text = alexa.confused + alexa.instruction
     else:
         speech_output = alexa.confused + "Please try again."
         reprompt_text = alexa.confused + alexa.instruction

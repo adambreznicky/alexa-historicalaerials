@@ -44,16 +44,23 @@
         "list {County} county",
         "give me all {County} county years",
         "please list {County} county",
-        "please list {County} years"
+        "please list {County} years",
+        "what are those years",
+        "can i get those years",
+        "list all of them",
+        "list all those years",
+        "list everything on file",
+        "list all the years in the archive",
+        "tell me all the years",
+        "tell me the entire list",
+        "list every year",
+        "please list every year"
       ],
       "slots": [
         {
           "name": "County",
           "type": "TexasCountyName",
-          "samples": [
-            "{County}",
-            "{County} County"
-          ]
+          "samples": []
         }
       ]
     },
@@ -91,7 +98,8 @@
         "does tinriss have aerials of {County}",
         "how much does tinriss have for {County} county",
         "how much historical imagery does t. n. r. i. s. have of {County} county",
-        "does t. n. r. i. s. have aerials of {County}"
+        "does t. n. r. i. s. have aerials of {County}",
+        "what is in the archive for {County} county"
       ],
       "slots": [
         {
@@ -2427,17 +2435,6 @@
   ],
   "prompts": [
     {
-      "id": "Elicit.Intent-ListYearsIntent.IntentSlot-County",
-      "promptVersion": "1.0",
-      "definitionVersion": "1.0",
-      "variations": [
-        {
-          "type": "PlainText",
-          "value": "For which County would you like me to list the years on file?"
-        }
-      ]
-    },
-    {
       "id": "Elicit.Intent-LookupIntent.IntentSlot-County",
       "promptVersion": "1.0",
       "definitionVersion": "1.0",
@@ -2452,22 +2449,6 @@
   "dialog": {
     "version": "1.0",
     "intents": [
-      {
-        "name": "ListYearsIntent",
-        "confirmationRequired": false,
-        "prompts": {},
-        "slots": [
-          {
-            "name": "County",
-            "type": "TexasCountyName",
-            "elicitationRequired": true,
-            "confirmationRequired": false,
-            "prompts": {
-              "elicit": "Elicit.Intent-ListYearsIntent.IntentSlot-County"
-            }
-          }
-        ]
-      },
       {
         "name": "LookupIntent",
         "confirmationRequired": false,

@@ -29,3 +29,15 @@ class alexa:
                " County historical imagery available. " \
                "It is from " + str(single_year) + ". "
         return text
+
+    def list_range(self, county, years):
+        year_list_str = ""
+        for y in years[:-1]:
+            year_str = str(y) + ", "
+            year_list_str += year_str
+        year_last = "and " + str(years[-1])
+        year_list_str += year_last
+        text = "TinRiss has " + county + " County historical " \
+               "imagery available for years " + \
+               year_list_str + ". "
+        return text

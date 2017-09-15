@@ -40,7 +40,11 @@
         "which years does t. n. r. i. s. have of {County} county",
         "tell me what years of historical imagery t. n. r. i. s. has of {County} county ",
         "what years of {County} county historical imagery are in the archive",
-        "what are the years for {County} county"
+        "what are the years for {County} county",
+        "list {County} county",
+        "give me all {County} county years",
+        "please list {County} county",
+        "please list {County} years"
       ],
       "slots": [
         {

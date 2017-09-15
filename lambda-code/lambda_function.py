@@ -120,9 +120,37 @@ def get_hist_imagery_years(fips):
         return [length, oldest, newest]
 
 
+def get_imagery_years_list(fips):
+    url_base = 'https://historical-aerials.tnris.org/api/v1/' \
+               'records?countyFips='
+    url = url_base + str(fips)
+    r = requests.get(url)
+    imgs = r.json()
+    if len(imgs) == 0:
+        return 0
+    if len(imgs) == 1:
+        single_year = imgs[0]['Date']
+        try:
+            year = datetime.strptime(single_year, '%Y-%m-%dT%H:%M:%S.%fZ').year
+            return year
+        except:
+            return 0
+    else:
+        try:
+            years = [datetime.strptime(i['Date'],
+                     '%Y-%m-%dT%H:%M:%S.%fZ').year for i in imgs]
+        except:
+            init = [i['Date'] for i in imgs]
+            years = format_year_list(init)
+
+        unique_years = sorted(set(years))
+        print(unique_years)
+        return unique_years
+
+
 def lookup_session(intent, session):
     """
-    Looks up requested data
+    Looks up general information on file on a county
     """
     card_title = intent['name']
     session_attributes = {}
@@ -149,7 +177,6 @@ def lookup_session(intent, session):
                 text = alexa.imagery_single(historical_county, years)
                 speech_output = text + reprompt_text
         except:
-            print(alexa)
             speech_output = alexa.confused + "Please try again."
             reprompt_text = alexa.confused + alexa.instruction
     else:
@@ -159,16 +186,41 @@ def lookup_session(intent, session):
         card_title, speech_output, reprompt_text, should_end_session))
 
 
-# def list_years_session(intent, session):
-#     """
-#     Lists the specific years on file for a county
-#     """
-#     card_title = intent['name']
-#     session_attributes = {}
-#     should_end_session = False
+def list_years_session(intent, session):
+    """
+    Lists the specific years on file for a county
+    """
+    card_title = intent['name']
+    session_attributes = {}
+    should_end_session = False
 
-#     return build_response(session_attributes, build_speechlet_response(
-#         card_title, speech_output, reprompt_text, should_end_session))
+    if 'County' in intent['slots']:
+        try:
+            historical_county = intent['slots']['County']['value']
+            fips = get_county_fips(historical_county)
+            years = get_imagery_years_list(fips)
+            multiple = isinstance(years, list)
+
+            if multiple:
+                reprompt_text = alexa.reprompt_1
+                text = alexa.list_range(historical_county, years)
+                speech_output = text + reprompt_text
+            elif years == 0:
+                reprompt_text = alexa.reprompt_2
+                text = alexa.imagery_none(historical_county)
+                speech_output = text + reprompt_text
+            else:
+                reprompt_text = alexa.reprompt_1
+                text = alexa.imagery_single(historical_county, years)
+                speech_output = text + reprompt_text
+        except:
+            speech_output = alexa.confused + "Please try again."
+            reprompt_text = alexa.confused + alexa.instruction
+    else:
+        speech_output = alexa.confused + "Please try again."
+        reprompt_text = alexa.confused + alexa.instruction
+    return build_response(session_attributes, build_speechlet_response(
+        card_title, speech_output, reprompt_text, should_end_session))
 
 
 # --------------- Events ------------------
@@ -205,8 +257,8 @@ def on_intent(intent_request, session):
     # Dispatch to your skill's intent handlers
     if intent_name == "LookupIntent":
         return lookup_session(intent, session)
-    # elif intent_name == "ListYearsIntent":
-    #     return list_years_session(intent, session)
+    elif intent_name == "ListYearsIntent":
+        return list_years_session(intent, session)
     elif intent_name == "AMAZON.HelpIntent":
         return get_welcome_response()
     elif (intent_name == "AMAZON.CancelIntent" or

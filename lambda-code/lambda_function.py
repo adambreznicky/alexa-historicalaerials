@@ -68,7 +68,7 @@ def get_welcome_response():
 
 def handle_session_end_request():
     card_title = "Goodbye"
-    speech_output = "Thanks for chatting with Tin Riss. Goodbye."
+    speech_output = "Thanks for chatting with TinRiss. Goodbye."
     # Setting this to true ends the session and exits the skill.
     should_end_session = True
     return build_response({}, build_speechlet_response(
@@ -87,6 +87,12 @@ def get_county_fips(name):
         return fips
 
 
+def format_year_list(the_list):
+    no_none = [value for value in the_list if value is not None]
+    return [datetime.strptime(i,
+            '%Y-%m-%dT%H:%M:%S.%fZ').year for i in no_none]
+
+
 def get_hist_imagery_years(fips):
     url_base = 'https://historical-aerials.tnris.org/api/v1/' \
                'records?countyFips='
@@ -97,10 +103,19 @@ def get_hist_imagery_years(fips):
         return 0
     if len(imgs) == 1:
         single_year = imgs[0]['Date']
-        return datetime.strptime(single_year, '%Y-%m-%dT%H:%M:%S.%fZ').year
+        try:
+            year = datetime.strptime(single_year, '%Y-%m-%dT%H:%M:%S.%fZ').year
+            return year
+        except:
+            return 0
     else:
-        years = [datetime.strptime(i['Date'],
-                 '%Y-%m-%dT%H:%M:%S.%fZ').year for i in imgs]
+        try:
+            years = [datetime.strptime(i['Date'],
+                     '%Y-%m-%dT%H:%M:%S.%fZ').year for i in imgs]
+        except:
+            init = [i['Date'] for i in imgs]
+            years = format_year_list(init)
+
         unique_years = sorted(set(years))
         print(unique_years)
         oldest = unique_years[0]
@@ -119,36 +134,44 @@ def lookup_session(intent, session):
     should_end_session = False
 
     if 'County' in intent['slots']:
-        historical_county = intent['slots']['County']['value']
-        # session_attributes = create_favorite_color_attributes(favorite_color)
-        fips = get_county_fips(historical_county)
-        years = get_hist_imagery_years(fips)
-        multiple = isinstance(years, list)
+        try:
+            historical_county = intent['slots']['County']['value']
+            # session_attributes = create_favorite_color_attributes(favorite_color)
+            fips = get_county_fips(historical_county)
+            years = get_hist_imagery_years(fips)
+            multiple = isinstance(years, list)
 
-        if multiple:
-            speech_output = "Tin Riss has " + str(years[0]) + " years of " + \
-                            historical_county + " County historical imagery " \
-                            "available ranging from " + str(years[1]) + " to " + \
-                            str(years[2]) + ". " \
-                            "Is there another county you would " \
-                            "like me to look up?"
-            reprompt_text = "Is there another county you would " \
-                            "like me to look up?"
-        elif years == 0:
-            speech_output = "Sorry, there is no historical imagery for " + \
-                            historical_county + " County. " \
-                            "If there is another county I can lookup " \
-                            "I would be happy to do so."
-            reprompt_text = "If there is another county I can lookup " \
-                            "I would be happy to do so."
-        else:
-            speech_output = "Tin Riss has 1 year of " + \
-                            historical_county + " County historical imagery " \
-                            "available. It is from " + str(years) + ". " + \
-                            "Is there another county you would " \
-                            "like me to look up?"
-            reprompt_text = "Is there another county you would " \
-                            "like me to look up?"
+            if multiple:
+                speech_output = "TinRiss has " + str(years[0]) + " years of " \
+                                + historical_county + " County historical " \
+                                "imagery available ranging from " + \
+                                str(years[1]) + " to " + str(years[2]) + ". " \
+                                "Is there another county you would " \
+                                "like me to look up?"
+                reprompt_text = "Is there another county you would " \
+                                "like me to look up?"
+            elif years == 0:
+                speech_output = "Sorry, there is no historical imagery " + \
+                                "for " + historical_county + " County. " \
+                                "If there is another county I can lookup " \
+                                "I would be happy to do so."
+                reprompt_text = "If there is another county I can lookup " \
+                                "I would be happy to do so."
+            else:
+                speech_output = "TinRiss has 1 year of " + \
+                                historical_county + " County historical " \
+                                "imagery available. It is from " + str(years) \
+                                + ". " + \
+                                "Is there another county you would " \
+                                "like me to look up?"
+                reprompt_text = "Is there another county you would " \
+                                "like me to look up?"
+        except:
+            speech_output = "I'm not sure what county you're looking for. " \
+                            "Please try again."
+            reprompt_text = "I'm not sure what county you're looking for. " \
+                            "Please tell me the Texas county you would like " \
+                            "historic imagery for."
 
     else:
         speech_output = "I'm not sure what county you're looking for. " \

@@ -7,7 +7,7 @@ Currently, only implements basic Historical Aerials functionality.
 * Lambda Functionality is contained to the lambda-code folder. All external packages utilized in the lambda function must be installed into the 'alexa-historicalaerials/lambda-code' folder so that all packages are localized
 
 ### Deploying
-* Create a zipfile of the contents of the 'lambda-code' folder and upload to the Lambda Function in AWS
+* `make zip` will make a zipfile of the contents of the 'lambda-code' folder. After running, upload 'lambda_function_payload.zip' to the Lambda Function in AWS
 
 #### Future
 * Expand Historical Aerials for more detailed information and interactions

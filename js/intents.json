@@ -412,8 +412,8 @@
         }, {
             "id": "48123",
             "name": {
-                "synonyms": ["dewitt", "Dewitt"],
-                "value": "DeWitt"
+                "synonyms": ["dewitt", "DeWitt", "De Witt", "De witt"],
+                "value": "Dewitt"
             }
         }, {
             "id": "48117",
@@ -802,7 +802,7 @@
         }, {
             "id": "48247",
             "name": {
-                "synonyms": ["jim hogg", "Jim hogg"],
+                "synonyms": ["jim hogg", "Jim hogg", "Jim hog", "jim hog"],
                 "value": "Jim Hogg"
             }
         }, {
@@ -1030,7 +1030,7 @@
         }, {
             "id": "48311",
             "name": {
-                "synonyms": ["mcmullen", "Mcmullen"],
+                "synonyms": ["mcmullen", "Mcmullen", "Mc Mullen", "Mc mullen"],
                 "value": "McMullen"
             }
         }, {

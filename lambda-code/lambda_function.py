@@ -397,7 +397,7 @@ def band_session(intent, session):
     speech_output = "Oh, that's an easy one. Primus is the greatest band " \
                     "in the world. <break time='3s'/> Well, I don't know. " \
                     "It <emphasis level='strong'>could be</emphasis> Led " \
-                    "Zeppelin. <break time='2s'/> Na, it's definitely " \
+                    "Zeppelin. <break time='2s'/> Nah, it's definitely " \
                     "Primus."
     reprompt_text = alexa.instruction
     return build_response(session_attributes, build_speechlet_response(

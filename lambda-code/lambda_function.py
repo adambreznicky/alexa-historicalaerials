@@ -382,7 +382,29 @@ def specific_year_session(intent, session):
         card_title, speech_output, reprompt_text, should_end_session))
 
 
+def band_session(intent, session):
+    """
+    Easter Egg
+    """
+    card_title = intent['name']
+    session_attributes = {}
+    should_end_session = False
+
+    if session.get('attributes', {}) and "county" in session.get('attributes',
+                                                                 {}):
+        session_county = session['attributes']['county']
+        session_attributes = create_session_ref(session_county)
+    speech_output = "Oh, that's an easy one. Primus is the greatest band " \
+                    "in the world. <break time='3s'/> Well, I don't know. " \
+                    "It <emphasis level='strong'>could be</emphasis> Led " \
+                    "Zeppelin. <break time='2s'/> Na, it's definitely " \
+                    "Primus."
+    reprompt_text = alexa.instruction
+    return build_response(session_attributes, build_speechlet_response(
+        card_title, speech_output, reprompt_text, should_end_session))
+
 # --------------- Events ------------------
+
 
 def on_session_started(session_started_request, session):
     """ Called when the session starts """
@@ -420,6 +442,8 @@ def on_intent(intent_request, session):
         return list_years_session(intent, session)
     elif intent_name == "LookupIntent":
         return lookup_session(intent, session)
+    elif intent_name == "BandIntent":
+        return band_session(intent, session)
     elif intent_name == "AMAZON.HelpIntent":
         return get_welcome_response()
     elif (intent_name == "AMAZON.CancelIntent" or

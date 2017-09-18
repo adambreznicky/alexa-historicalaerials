@@ -13,6 +13,19 @@
       "samples": []
     },
     {
+      "name": "BandIntent",
+      "samples": [
+        "what is the greatest band in the world",
+        "who is the greatest band in the world",
+        "what is the most awesome band in the world",
+        "who is the worlds greatest band",
+        "what band is the best in the world",
+        "what band is the best",
+        "what is the worlds greatest band"
+      ],
+      "slots": []
+    },
+    {
       "name": "ListYearsIntent",
       "samples": [
         "please list the all the years for {County} County",

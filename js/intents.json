@@ -15,25 +15,25 @@
     {
       "name": "ListYearsIntent",
       "samples": [
-        "please list the years for {County} County",
+        "please list the all the years for {County} County",
         "what are the years of historical imagery on file for {County}",
-        "list all imagery for {County} County",
+        "list all imagery years for {County} County",
         "tell me every year of aerials of {County}",
-        "can you list everything on file for {County}",
+        "can you list every year on file for {County}",
         "what is the list of years for {County} County",
-        "list everything for {County} County",
-        "tell me everything you got for {County} county",
-        "what is the detailed list of {County}",
-        "list what you got for {County}",
+        "list every year for {County} County",
+        "tell me every year you got for {County} county",
+        "what is the detailed list of {County} years",
+        "list what years you got for {County}",
         "what years of historical aerials exist for {County} county",
         "give me every year of {County} county on file",
-        "list everything you got for {County} county",
+        "list every year you got for {County} county",
         "what are all the years of imagery for {County}",
         "list all the years of {County} county",
         "tell me all the years tinriss has for {County}",
-        "list what tinriss has for {County} county",
-        "list the t. n. r. i. s. {County} county imagery",
-        "get me a list the {County} county historical archive",
+        "list what years tinriss has for {County} county",
+        "list the t. n. r. i. s. {County} county imagery years",
+        "get me a list the {County} county historical archive years",
         "tell me every year of {County} imagery",
         "tell me every year of tinriss {County} county historical imagery",
         "tell me every year of tinriss {County} county historical aerials",
@@ -41,18 +41,18 @@
         "tell me what years of historical imagery t. n. r. i. s. has of {County} county ",
         "what years of {County} county historical imagery are in the archive",
         "what are the years for {County} county",
-        "list {County} county",
+        "list {County} county years",
         "give me all {County} county years",
-        "please list {County} county",
+        "please list {County} county years",
         "please list {County} years",
-        "what are those years",
-        "can i get those years",
-        "list all of them",
+        "what are all those years",
+        "can i get all those years",
+        "list all of the years",
         "list all those years",
-        "list everything on file",
+        "list every year on file",
         "list all the years in the archive",
         "tell me all the years",
-        "tell me the entire list",
+        "tell me the entire list of years",
         "list every year",
         "please list every year"
       ],
@@ -68,32 +68,25 @@
       "name": "LookupIntent",
       "samples": [
         "what imagery is available for {County} county",
-        "is there imagery for {County}",
         "how much historical imagery do you have for {County} county",
         "do you have imagery for {County}",
         "how many years of imagery are there for {County} county",
         "does {County} have historical imagery",
-        "{County} imagery",
-        "{County} historical imagery",
-        "{County} aerials",
         "what does t. n. r. i. s. have for {County}",
         "what is available for {County}",
         "are there aerials for {County} county",
         "are there aerials for {County}",
         "{County} historical aerials",
-        "{County} County",
         "what do you have for {County} county",
         "what is on file for {County}",
-        "is there anything for {County} county",
         "does {County} county have anything",
-        "does {County} have any imagery",
+        "does {County} county have any imagery",
         "what imagery is there for {County} county",
         "what aerials are there for {County}",
         "what historical photos exist for {County} county",
-        "are there photos for {County}",
-        "what's on record for {County}",
-        "what you got for {County}",
-        "what about {County} county",
+        "are there photos for {County} county",
+        "what's on record for {County} county",
+        "what you got for {County} county",
         "whats on file at tinriss for {County} county",
         "does tinriss have aerials of {County}",
         "how much does tinriss have for {County} county",
@@ -109,6 +102,36 @@
             "{County}",
             "{County} County"
           ]
+        }
+      ]
+    },
+    {
+      "name": "SpecificYearIntent",
+      "samples": [
+        "is year {ImageryYear} available for {County} county",
+        "is year {ImageryYear} in that list",
+        "is year {ImageryYear} one of them",
+        "is year {ImageryYear} in the archive for {County} county",
+        "is year {ImageryYear} in the list for {County}",
+        "is year {ImageryYear} on record for {County}",
+        "is year {ImageryYear} available for {County}",
+        "is year {ImageryYear} on that list",
+        "is year {ImageryYear} on record for {County} county",
+        "is year {ImageryYear} in there"
+      ],
+      "slots": [
+        {
+          "name": "ImageryYear",
+          "type": "AMAZON.FOUR_DIGIT_NUMBER",
+          "samples": [
+            "year {ImageryYear}",
+            "{ImageryYear}"
+          ]
+        },
+        {
+          "name": "County",
+          "type": "TexasCountyName",
+          "samples": []
         }
       ]
     }
@@ -2444,6 +2467,17 @@
           "value": "What county would you like to look up historical imagery for?"
         }
       ]
+    },
+    {
+      "id": "Elicit.Intent-SpecificYearIntent.IntentSlot-ImageryYear",
+      "promptVersion": "1.0",
+      "definitionVersion": "1.0",
+      "variations": [
+        {
+          "type": "PlainText",
+          "value": "Sorry, I didn't catch that year. Please say the word year before the numerical year"
+        }
+      ]
     }
   ],
   "dialog": {
@@ -2462,6 +2496,29 @@
             "prompts": {
               "elicit": "Elicit.Intent-LookupIntent.IntentSlot-County"
             }
+          }
+        ]
+      },
+      {
+        "name": "SpecificYearIntent",
+        "confirmationRequired": false,
+        "prompts": {},
+        "slots": [
+          {
+            "name": "ImageryYear",
+            "type": "AMAZON.FOUR_DIGIT_NUMBER",
+            "elicitationRequired": true,
+            "confirmationRequired": false,
+            "prompts": {
+              "elicit": "Elicit.Intent-SpecificYearIntent.IntentSlot-ImageryYear"
+            }
+          },
+          {
+            "name": "County",
+            "type": "TexasCountyName",
+            "elicitationRequired": false,
+            "confirmationRequired": false,
+            "prompts": {}
           }
         ]
       }

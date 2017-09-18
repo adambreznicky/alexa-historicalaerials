@@ -148,6 +148,23 @@ def get_imagery_years_list(fips):
         return unique_years
 
 
+def confirm_year(years, requested_year):
+    multiple = isinstance(years, list)
+    year_num = int(requested_year)
+    if multiple:
+        if year_num in years:
+            return True
+        else:
+            return min(years, key=lambda x: abs(x-year_num))
+    elif years == 0:
+        return None
+    else:
+        if year_num == years:
+            return True
+        else:
+            return False
+
+
 def lookup_session(intent, session):
     """
     Looks up general information on file on a county
@@ -200,7 +217,7 @@ def list_years_session(intent, session):
         session_county = session['attributes']['county']
     else:
         session_county = ""
-
+    print(session_county)
     if 'County' in intent['slots']:
         try:
             historical_county = intent['slots']['County']['value']
@@ -227,8 +244,9 @@ def list_years_session(intent, session):
                 if session_county == "":
                     msg = 'No county saved in session and no new ' \
                           'county requested.'
+                    print(msg)
                     raise Exception(msg)
-
+                session_attributes = create_session_ref(session_county)
                 fips = get_county_fips(session_county)
                 years = get_imagery_years_list(fips)
                 multiple = isinstance(years, list)
@@ -245,6 +263,115 @@ def list_years_session(intent, session):
                     reprompt_text = alexa.reprompt_1
                     text = alexa.imagery_single(session_county, years)
                     speech_output = text + reprompt_text
+            except:
+                speech_output = alexa.confused + "Please try again."
+                reprompt_text = alexa.confused + alexa.instruction
+    else:
+        speech_output = alexa.confused + "Please try again."
+        reprompt_text = alexa.confused + alexa.instruction
+    return build_response(session_attributes, build_speechlet_response(
+        card_title, speech_output, reprompt_text, should_end_session))
+
+
+def specific_year_session(intent, session):
+    """
+    Verify a specific year on file for a county
+    """
+    card_title = intent['name']
+    session_attributes = {}
+    should_end_session = False
+
+    if session.get('attributes', {}) and "county" in session.get('attributes',
+                                                                 {}):
+        session_county = session['attributes']['county']
+    else:
+        session_county = ""
+    print(session_county)
+    if 'County' in intent['slots'] and 'ImageryYear' in intent['slots']:
+        try:
+            historical_county = intent['slots']['County']['value']
+            if session_county != historical_county:
+                session_attributes = create_session_ref(historical_county)
+            try:
+                requested_year = intent['slots']['ImageryYear']['value']
+                fips = get_county_fips(historical_county)
+                years = get_imagery_years_list(fips)
+                multiple = isinstance(years, list)
+                confirmation = confirm_year(years, requested_year)
+
+                if multiple:
+                    reprompt_text = alexa.reprompt_3
+                    if confirmation is True:
+                        text = alexa.affirmative_year(historical_county,
+                                                      requested_year)
+                    else:
+                        text = alexa.negative_year(historical_county,
+                                                   requested_year,
+                                                   confirmation)
+                    speech_output = text + reprompt_text
+                elif years == 0:
+                    reprompt_text = alexa.reprompt_2
+                    text = alexa.imagery_none(historical_county)
+                    speech_output = text + reprompt_text
+                else:
+                    reprompt_text = alexa.reprompt_1
+                    if confirmation is True:
+                        text = alexa.affirmative_year(historical_county,
+                                                      requested_year)
+                    else:
+                        text = alexa.negative_year_single(historical_county,
+                                                          requested_year,
+                                                          years)
+                    speech_output = text + reprompt_text
+            except:
+                speech_output = alexa.confused_2 + "Please try again."
+                reprompt_text = alexa.confused_2 + alexa.instruction
+
+        except:
+            try:
+                if session_county == "":
+                    msg = 'No county saved in session and no new ' \
+                          'county requested.'
+                    print(msg)
+                    raise Exception(msg)
+                else:
+                    session_attributes = create_session_ref(session_county)
+
+                try:
+                    requested_year = intent['slots']['ImageryYear']['value']
+                    fips = get_county_fips(session_county)
+                    years = get_imagery_years_list(fips)
+                    multiple = isinstance(years, list)
+                    confirmation = confirm_year(years, requested_year)
+
+                    if multiple:
+                        reprompt_text = alexa.reprompt_3
+                        if confirmation is True:
+                            text = alexa.affirmative_year(session_county,
+                                                          requested_year)
+                        else:
+                            text = alexa.negative_year(session_county,
+                                                       requested_year,
+                                                       confirmation)
+                        speech_output = text + reprompt_text
+                    elif years == 0:
+                        reprompt_text = alexa.reprompt_2
+                        text = alexa.imagery_none(session_county)
+                        speech_output = text + reprompt_text
+                    else:
+                        reprompt_text = alexa.reprompt_1
+                        if confirmation is True:
+                            text = alexa.affirmative_year(session_county,
+                                                          requested_year)
+                        else:
+                            text = alexa.negative_year_single(session_county,
+                                                              requested_year,
+                                                              years)
+                        speech_output = text + reprompt_text
+                except:
+                    speech_output = alexa.confused_2 + "Please try again."
+                    reprompt_text = alexa.confused_2 + alexa.instruction
+
             except:
                 speech_output = alexa.confused + "Please try again."
                 reprompt_text = alexa.confused + alexa.instruction
@@ -287,10 +414,12 @@ def on_intent(intent_request, session):
     print(intent_name)
 
     # Dispatch to your skill's intent handlers
-    if intent_name == "LookupIntent":
-        return lookup_session(intent, session)
+    if intent_name == "SpecificYearIntent":
+        return specific_year_session(intent, session)
     elif intent_name == "ListYearsIntent":
         return list_years_session(intent, session)
+    elif intent_name == "LookupIntent":
+        return lookup_session(intent, session)
     elif intent_name == "AMAZON.HelpIntent":
         return get_welcome_response()
     elif (intent_name == "AMAZON.CancelIntent" or

@@ -229,21 +229,21 @@ def list_years_session(intent, session):
                           'county requested.'
                     raise Exception(msg)
 
-                fips = get_county_fips(historical_county)
+                fips = get_county_fips(session_county)
                 years = get_imagery_years_list(fips)
                 multiple = isinstance(years, list)
 
                 if multiple:
                     reprompt_text = alexa.reprompt_1
-                    text = alexa.list_range(historical_county, years)
+                    text = alexa.list_range(session_county, years)
                     speech_output = text + reprompt_text
                 elif years == 0:
                     reprompt_text = alexa.reprompt_2
-                    text = alexa.imagery_none(historical_county)
+                    text = alexa.imagery_none(session_county)
                     speech_output = text + reprompt_text
                 else:
                     reprompt_text = alexa.reprompt_1
-                    text = alexa.imagery_single(historical_county, years)
+                    text = alexa.imagery_single(session_county, years)
                     speech_output = text + reprompt_text
             except:
                 speech_output = alexa.confused + "Please try again."

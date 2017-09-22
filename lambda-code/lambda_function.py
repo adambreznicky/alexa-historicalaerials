@@ -34,6 +34,27 @@ def build_speechlet_response(title, output, reprompt_text, should_end_session):
     }
 
 
+def build_ssml_response(title, output, reprompt_text, should_end_session):
+    return {
+        'outputSpeech': {
+            'type': 'SSML',
+            'ssml': output
+        },
+        'card': {
+            'type': 'Simple',
+            'title': "SessionSpeechlet - " + title,
+            'content': "SessionSpeechlet - " + output
+        },
+        'reprompt': {
+            'outputSpeech': {
+                'type': 'PlainText',
+                'text': reprompt_text
+            }
+        },
+        'shouldEndSession': should_end_session
+    }
+
+
 def build_response(session_attributes, speechlet_response):
     return {
         'version': '1.0',
@@ -394,13 +415,13 @@ def band_session(intent, session):
                                                                  {}):
         session_county = session['attributes']['county']
         session_attributes = create_session_ref(session_county)
-    speech_output = "Oh, that's an easy one. Primus is the greatest band " \
-                    "in the world. <break time='3s'/> Well, I don't know. " \
-                    "It <emphasis level='strong'>could be</emphasis> Led " \
-                    "Zeppelin. <break time='2s'/> Nah, it's definitely " \
-                    "Primus."
+    speech_output = "<speak>Oh, that's an easy one. Primus is the greatest " \
+                    "band in the world. <break time='3s'/> Well, I don't " \
+                    "know. It <emphasis level='strong'>could be</emphasis> " \
+                    "Led Zeppelin. <break time='2s'/> Nah, it's definitely " \
+                    "Primus.</speak>"
     reprompt_text = alexa.instruction
-    return build_response(session_attributes, build_speechlet_response(
+    return build_response(session_attributes, build_ssml_response(
         card_title, speech_output, reprompt_text, should_end_session))
 
 # --------------- Events ------------------

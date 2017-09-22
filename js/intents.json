@@ -89,7 +89,7 @@
         "what is available for {County}",
         "are there aerials for {County} county",
         "are there aerials for {County}",
-        "{County} historical aerials",
+        "{County} county historical aerials",
         "what do you have for {County} county",
         "what is on file for {County}",
         "does {County} county have anything",
@@ -99,13 +99,18 @@
         "what historical photos exist for {County} county",
         "are there photos for {County} county",
         "what's on record for {County} county",
-        "what you got for {County} county",
+        "{County} historical aerials",
         "whats on file at tinriss for {County} county",
         "does tinriss have aerials of {County}",
         "how much does tinriss have for {County} county",
         "how much historical imagery does t. n. r. i. s. have of {County} county",
         "does t. n. r. i. s. have aerials of {County}",
-        "what is in the archive for {County} county"
+        "what is in the archive for {County} county",
+        "what is available for {County} county",
+        "is there imagery for {County} county",
+        "does {County} county have imagery",
+        "what imagery is there for {County}",
+        "what aerials are there for {County} county"
       ],
       "slots": [
         {
@@ -130,7 +135,15 @@
         "is year {ImageryYear} available for {County}",
         "is year {ImageryYear} on that list",
         "is year {ImageryYear} on record for {County} county",
-        "is year {ImageryYear} in there"
+        "is year {ImageryYear} in there",
+        "is the year {ImageryYear} available",
+        "is the year {ImageryYear} on record",
+        "is the year {ImageryYear} in the archive",
+        "is year {ImageryYear} available",
+        "is the year {ImageryYear} on record for {County} county",
+        "is the year {ImageryYear} on file",
+        "is the year {ImageryYear} on file for {County}",
+        "is year {ImageryYear} in the archive for {County}"
       ],
       "slots": [
         {

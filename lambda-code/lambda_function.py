@@ -13,16 +13,19 @@ alexa = responses.alexa()
 # --------------- Helpers that build all of the responses ---------------------
 
 
-def build_speechlet_response(title, output, reprompt_text, should_end_session):
+def build_speechlet_response(title, speech_output, reprompt_text,
+                             should_end_session, card_output):
+    card_text = card_output.replace("TinRiss", "TNRIS")
+
     return {
         'outputSpeech': {
             'type': 'PlainText',
-            'text': output
+            'text': speech_output
         },
         'card': {
             'type': 'Simple',
-            'title': "SessionSpeechlet - " + title,
-            'content': "SessionSpeechlet - " + output
+            'title': title,
+            'content': card_text
         },
         'reprompt': {
             'outputSpeech': {
@@ -34,16 +37,27 @@ def build_speechlet_response(title, output, reprompt_text, should_end_session):
     }
 
 
-def build_ssml_response(title, output, reprompt_text, should_end_session):
+def build_nocard_response(speech_output, reprompt_text, should_end_session):
+    return {
+        'outputSpeech': {
+            'type': 'PlainText',
+            'text': speech_output
+        },
+        'reprompt': {
+            'outputSpeech': {
+                'type': 'PlainText',
+                'text': reprompt_text
+            }
+        },
+        'shouldEndSession': should_end_session
+    }
+
+
+def build_ssml_response(speech_output, reprompt_text, should_end_session):
     return {
         'outputSpeech': {
             'type': 'SSML',
-            'ssml': output
-        },
-        'card': {
-            'type': 'Simple',
-            'title': "SessionSpeechlet - " + title,
-            'content': "SessionSpeechlet - " + output
+            'ssml': speech_output
         },
         'reprompt': {
             'outputSpeech': {
@@ -63,15 +77,22 @@ def build_response(session_attributes, speechlet_response):
     }
 
 
-# -------------- Functions that control the skill's behavior -----------------
+def build_nocard(attr, speech, reprompt, end):
+    return build_response(attr, build_nocard_response(speech, reprompt, end))
 
+
+def build_yescard(attr, title, speech, reprompt, end, card):
+    return build_response(attr, build_speechlet_response(title, speech,
+                                                         reprompt, end, card))
+
+
+# -------------- Functions that control the skill's behavior -----------------
 def get_welcome_response():
     """ If we wanted to initialize the session to have some attributes we could
     add those here
     """
 
     session_attributes = {}
-    card_title = "Welcome"
     speech_output = "Howdy! Welcome to the Texas Natural Resources " \
                     "Information System. " + alexa.instruction
     # If the user either does not reply to the welcome message or
@@ -79,17 +100,16 @@ def get_welcome_response():
     # with this text.
     reprompt_text = alexa.instruction
     should_end_session = False
-    return build_response(session_attributes, build_speechlet_response(
-        card_title, speech_output, reprompt_text, should_end_session))
+    return build_response(session_attributes, build_nocard_response(
+        speech_output, reprompt_text, should_end_session))
 
 
 def handle_session_end_request():
-    card_title = "Goodbye"
     speech_output = "Thanks for chatting with TinRiss. Goodbye."
     # Setting this to true ends the session and exits the skill.
     should_end_session = True
-    return build_response({}, build_speechlet_response(
-        card_title, speech_output, None, should_end_session))
+    return build_response({}, build_nocard_response(
+        speech_output, None, should_end_session))
 
 
 def create_session_ref(county):
@@ -107,7 +127,7 @@ def get_county_fips(name):
 def format_year_list(the_list):
     no_none = [value for value in the_list if value is not None]
     return [datetime.strptime(i,
-            '%Y-%m-%dT%H:%M:%S.%fZ').year for i in no_none]
+                              '%Y-%m-%dT%H:%M:%S.%fZ').year for i in no_none]
 
 
 def get_hist_imagery_years(fips):
@@ -128,7 +148,7 @@ def get_hist_imagery_years(fips):
     else:
         try:
             years = [datetime.strptime(i['Date'],
-                     '%Y-%m-%dT%H:%M:%S.%fZ').year for i in imgs]
+                                       '%Y-%m-%dT%H:%M:%S.%fZ').year for i in imgs]
         except:
             init = [i['Date'] for i in imgs]
             years = format_year_list(init)
@@ -159,7 +179,7 @@ def get_imagery_years_list(fips):
     else:
         try:
             years = [datetime.strptime(i['Date'],
-                     '%Y-%m-%dT%H:%M:%S.%fZ').year for i in imgs]
+                                       '%Y-%m-%dT%H:%M:%S.%fZ').year for i in imgs]
         except:
             init = [i['Date'] for i in imgs]
             years = format_year_list(init)
@@ -190,7 +210,6 @@ def lookup_session(intent, session):
     """
     Looks up general information on file on a county
     """
-    card_title = intent['name']
     session_attributes = {}
     should_end_session = False
 
@@ -215,21 +234,27 @@ def lookup_session(intent, session):
                 reprompt_text = alexa.reprompt_1
                 text = alexa.imagery_single(historical_county, years)
                 speech_output = text + reprompt_text
+
+            card_title = historical_county.title() + " County"
+            return build_yescard(session_attributes, card_title,
+                                 speech_output, reprompt_text,
+                                 should_end_session, text)
         except:
             speech_output = alexa.confused + "Please try again."
             reprompt_text = alexa.confused + alexa.instruction
+            return build_nocard(session_attributes, speech_output,
+                                reprompt_text, should_end_session)
     else:
         speech_output = alexa.confused + "Please try again."
         reprompt_text = alexa.confused + alexa.instruction
-    return build_response(session_attributes, build_speechlet_response(
-        card_title, speech_output, reprompt_text, should_end_session))
+    return build_nocard(session_attributes, speech_output, reprompt_text,
+                        should_end_session)
 
 
 def list_years_session(intent, session):
     """
     Lists the specific years on file for a county
     """
-    card_title = intent['name']
     session_attributes = {}
     should_end_session = False
 
@@ -260,6 +285,10 @@ def list_years_session(intent, session):
                 reprompt_text = alexa.reprompt_1
                 text = alexa.imagery_single(historical_county, years)
                 speech_output = text + reprompt_text
+
+            card_title = historical_county.title() + " County"
+            return build_yescard(session_attributes, card_title, speech_output,
+                                 reprompt_text, should_end_session, text)
         except:
             try:
                 if session_county == "":
@@ -284,21 +313,28 @@ def list_years_session(intent, session):
                     reprompt_text = alexa.reprompt_1
                     text = alexa.imagery_single(session_county, years)
                     speech_output = text + reprompt_text
+
+                card_title = session_county.title() + " County"
+                return build_yescard(session_attributes, card_title,
+                                     speech_output, reprompt_text,
+                                     should_end_session, text)
             except:
                 speech_output = alexa.confused + "Please try again."
                 reprompt_text = alexa.confused + alexa.instruction
+                return build_nocard(session_attributes, speech_output,
+                                    reprompt_text, should_end_session)
     else:
         speech_output = alexa.confused + "Please try again."
         reprompt_text = alexa.confused + alexa.instruction
-    return build_response(session_attributes, build_speechlet_response(
-        card_title, speech_output, reprompt_text, should_end_session))
+
+    return build_nocard(session_attributes, speech_output, reprompt_text,
+                        should_end_session)
 
 
 def specific_year_session(intent, session):
     """
     Verify a specific year on file for a county
     """
-    card_title = intent['name']
     session_attributes = {}
     should_end_session = False
 
@@ -344,9 +380,16 @@ def specific_year_session(intent, session):
                                                           requested_year,
                                                           years)
                     speech_output = text + reprompt_text
+
+                card_title = historical_county.title() + " County"
+                return build_yescard(session_attributes, card_title,
+                                     speech_output, reprompt_text,
+                                     should_end_session, text)
             except:
                 speech_output = alexa.confused_2 + "Please try again."
                 reprompt_text = alexa.confused_2 + alexa.instruction
+                return build_nocard(session_attributes, speech_output,
+                                    reprompt_text, should_end_session)
 
         except:
             try:
@@ -389,25 +432,36 @@ def specific_year_session(intent, session):
                                                               requested_year,
                                                               years)
                         speech_output = text + reprompt_text
+
+                    card_title = session_county.title() + " County"
+                    return build_yescard(session_attributes, card_title,
+                                         speech_output, reprompt_text,
+                                         should_end_session, text)
                 except:
                     speech_output = alexa.confused_2 + "Please try again."
                     reprompt_text = alexa.confused_2 + alexa.instruction
 
+                    return build_nocard(session_attributes, speech_output,
+                                        reprompt_text, should_end_session)
+
             except:
                 speech_output = alexa.confused + "Please try again."
                 reprompt_text = alexa.confused + alexa.instruction
+
+                return build_nocard(session_attributes, speech_output,
+                                    reprompt_text, should_end_session)
     else:
         speech_output = alexa.confused + "Please try again."
         reprompt_text = alexa.confused + alexa.instruction
-    return build_response(session_attributes, build_speechlet_response(
-        card_title, speech_output, reprompt_text, should_end_session))
+
+    return build_nocard(session_attributes, speech_output, reprompt_text,
+                        should_end_session)
 
 
 def band_session(intent, session):
     """
     Easter Egg
     """
-    card_title = intent['name']
     session_attributes = {}
     should_end_session = False
 
@@ -422,7 +476,7 @@ def band_session(intent, session):
                     "Primus.</speak>"
     reprompt_text = alexa.instruction
     return build_response(session_attributes, build_ssml_response(
-        card_title, speech_output, reprompt_text, should_end_session))
+        speech_output, reprompt_text, should_end_session))
 
 # --------------- Events ------------------
 

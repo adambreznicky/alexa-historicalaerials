@@ -17,18 +17,18 @@ class alexa:
 
     def imagery_range(self, county, total, min_year, max_year):
         text = "TinRiss has " + str(total) + " years of " \
-               + county + " County historical " \
+               + county.title() + " County historical " \
                "imagery available ranging from " + \
                str(min_year) + " to " + str(max_year) + ". "
         return text
 
     def imagery_none(self, county):
         text = "Sorry, there is no historical imagery " + \
-               "for " + county + " County. "
+               "for " + county.title() + " County. "
         return text
 
     def imagery_single(self, county, single_year):
-        text = "TinRiss has 1 year of " + county + \
+        text = "TinRiss has 1 year of " + county.title() + \
                " County historical imagery available. " \
                "It is from " + str(single_year) + ". "
         return text
@@ -40,24 +40,24 @@ class alexa:
             year_list_str += year_str
         year_last = "and " + str(years[-1])
         year_list_str += year_last
-        text = "TinRiss has " + county + " County historical " \
+        text = "TinRiss has " + county.title() + " County historical " \
                "imagery available for years " + \
                year_list_str + ". "
         return text
 
     def affirmative_year(self, county, year):
         text = "Yes, " + str(year) + " is available for " + \
-               county + " County. "
+               county.title() + " County. "
         return text
 
     def negative_year(self, county, year, close_year):
         text = "Sorry, " + str(year) + " is not available for " + \
-               county + " County. The closest year on file to " + \
+               county.title() + " County. The closest year on file to " + \
                str(year) + " is " + str(close_year) + ". "
         return text
 
     def negative_year_single(self, county, year, single_year):
         text = "Sorry, " + str(year) + " is not available. " + \
-               "The only year on file for " + county + " County " \
+               "The only year on file for " + county.title() + " County " \
                " is " + str(single_year) + ". "
         return text

@@ -463,7 +463,7 @@ def band_session(intent, session):
     Easter Egg
     """
     session_attributes = {}
-    should_end_session = False
+    should_end_session = True
 
     if session.get('attributes', {}) and "county" in session.get('attributes',
                                                                  {}):

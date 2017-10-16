@@ -126,8 +126,7 @@ def get_county_fips(name):
 
 def format_year_list(the_list):
     no_none = [value for value in the_list if value is not None]
-    return [datetime.strptime(i,
-                              '%Y-%m-%dT%H:%M:%S.%fZ').year for i in no_none]
+    return [int(i.split("-")[0]) for i in no_none]
 
 
 def get_hist_imagery_years(fips):
@@ -141,14 +140,13 @@ def get_hist_imagery_years(fips):
     if len(imgs) == 1:
         single_year = imgs[0]['Date']
         try:
-            year = datetime.strptime(single_year, '%Y-%m-%dT%H:%M:%S.%fZ').year
-            return year
+            year = single_year.split("-")[0]
+            return int(year)
         except:
             return 0
     else:
         try:
-            years = [datetime.strptime(i['Date'],
-                                       '%Y-%m-%dT%H:%M:%S.%fZ').year for i in imgs]
+            years = [int(i['Date'].split("-")[0]) for i in imgs]
         except:
             init = [i['Date'] for i in imgs]
             years = format_year_list(init)
@@ -165,21 +163,23 @@ def get_imagery_years_list(fips):
     url_base = 'https://historical-aerials.tnris.org/api/v1/' \
                'records?countyFips='
     url = url_base + str(fips)
+    print(url)
     r = requests.get(url)
     imgs = r.json()
+    print(r)
+    print(imgs)
     if len(imgs) == 0:
         return 0
     if len(imgs) == 1:
         single_year = imgs[0]['Date']
         try:
-            year = datetime.strptime(single_year, '%Y-%m-%dT%H:%M:%S.%fZ').year
-            return year
+            year = single_year.split("-")[0]
+            return int(year)
         except:
             return 0
     else:
         try:
-            years = [datetime.strptime(i['Date'],
-                                       '%Y-%m-%dT%H:%M:%S.%fZ').year for i in imgs]
+            years = [int(i['Date'].split("-")[0]) for i in imgs]
         except:
             init = [i['Date'] for i in imgs]
             years = format_year_list(init)
